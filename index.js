@@ -11,7 +11,7 @@ let url = "https://api.telegram.org/bot932870986:AAG1xZGSvIPoQlI6oXK__ciOLdzEfA8
  */
 exports.send = (pubSubEvent, context) => {
     console.log(Buffer.from(pubSubEvent.data, 'base64').toString());
-    let message = Buffer.from(pubSubEvent.data, 'base64').toString();
+    let message = Buffer.from(pubSubEvent.data, 'base64').toJSON();
     var steps = message.steps;
     for (var step in steps) {
         var stepName = step.name
