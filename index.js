@@ -11,19 +11,19 @@ let url = "https://api.telegram.org/bot932870986:AAG1xZGSvIPoQlI6oXK__ciOLdzEfA8
  */
 exports.send = (pubSubEvent, context) => {
     console.log(Buffer.from(pubSubEvent.data, 'base64').toString());
-    let message = Buffer.from(pubSubEvent.data, 'base64').toJSON();
+    let message = JSON.parse(Buffer.from(pubSubEvent.data, 'base64').toString());
     var steps = message.steps;
     console.log(steps)
-    for (var step in steps) {
-        var stepName = step.name
-        for (var args in step.args) {
-            stepName += ` ${args}`
-        }
-
-        if (step.status) {
-            sendMessage(`${stepName} ${step/status}`);
-        }
-    }
+    steps.forEach((step) => {
+      var stepName = step.name
+      step.args.forEach((arg) => {
+        stepName += ` ${arg}`
+      })
+      
+      if (step.status) {
+        sendMessage(`${stepName} ${step.status}`)
+      }
+    })
 };
 
 function sendMessage(message) {
