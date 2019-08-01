@@ -13,6 +13,7 @@ exports.send = (pubSubEvent, context) => {
     console.log(Buffer.from(pubSubEvent.data, 'base64').toString());
     let message = Buffer.from(pubSubEvent.data, 'base64').toJSON();
     var steps = message.steps;
+    console.log(steps)
     for (var step in steps) {
         var stepName = step.name
         for (var args in step.args) {
